@@ -5,7 +5,7 @@ QGAME: Quantum Gate and Measurement Emulator, a quantum computer simulator
 
 Unofficial Fork from http://faculty.hampshire.edu/lspector/qgame.html
 
-Updated for SBCL, Quicklisp, and cross-platform GUI libraries.
+Updated for SBCL, ASDF/Quicklisp, and LTK GUI library.
 
 Introduction
 ------------
@@ -31,3 +31,4 @@ System Requirements
 
 * SBCL 1.1.7+
 * Quicklisp
+* TCL/TK
