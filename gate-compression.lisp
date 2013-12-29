@@ -1,36 +1,38 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; gate-compression.lisp
-#|
+; #|
 
-c) 1999-2004, Lee Spector (lspector@hampshire.edu)
+; c) 1999-2004, Lee Spector (lspector@hampshire.edu)
 
-This code augments the Common Lisp version of the QGAME (Quantum Gate And
-Measurement Emulator) with the MATRIX-GATE gate form and functions for 
-compressing a sequence of gates into single MATRIX-GATE form that applies
-the unitary matrix built from the elements of the sequence. Also included
-is a function for checking the unitarity of a matrix -- this is used to
-ensure that round-off errors during compression do not produce physicially
-impossible results.
+; This code augments the Common Lisp version of the QGAME (Quantum Gate And
+; Measurement Emulator) with the MATRIX-GATE gate form and functions for 
+; compressing a sequence of gates into single MATRIX-GATE form that applies
+; the unitary matrix built from the elements of the sequence. Also included
+; is a function for checking the unitarity of a matrix -- this is used to
+; ensure that round-off errors during compression do not produce physicially
+; impossible results.
 
-Example calls are provided at the end of this file.
+; Example calls are provided at the end of this file.
 
-QGAME and related documentation is distributed from:
+; QGAME and related documentation is distributed from:
 
-  http://hampshire.edu/lspector/qgame.html
+;   http://hampshire.edu/lspector/qgame.html
 
-See also:
+; See also:
 
-  Spector, Lee. 2004. Automatic Quantum Computer Programming: A Genetic 
-  Programming Approach. Boston/Dordrecht/New York/London: Kluwer Academic 
-  Publishers.
+;   Spector, Lee. 2004. Automatic Quantum Computer Programming: A Genetic 
+;   Programming Approach. Boston/Dordrecht/New York/London: Kluwer Academic 
+;   Publishers.
 
-Version history:
-Original sources from qc-matrices/matrices.lisp 
-Oct 5 1999, made compatible with limited-oracle
-Nov 12 2003, many updates, disentangled from LGP
-May 26 2004, cosmetic changes for distribution
+; Version history:
+; Original sources from qc-matrices/matrices.lisp 
+; Oct 5 1999, made compatible with limited-oracle
+; Nov 12 2003, many updates, disentangled from LGP
+; May 26 2004, cosmetic changes for distribution
 
-|#
+; |#
+
+(in-package :qgame)
 
 ;; compiler optimization settings
 
@@ -103,7 +105,7 @@ Written by Lee Spector, 1999."
           when (logbitp index int)
           sum (expt 2 exponent))))
 
-(defun long (n)
+(defun coerce-to-long-float (n)
   "Returns the number n coerced to a long float."
   (coerce n 'long-float))
 
@@ -135,13 +137,13 @@ gate-form, which should conform to the QGAME interface syntax."
                                (list (/ 1 (sqrt 2.0L0))  (/ 1 (sqrt 2.0L0)))
                                ))
                         (cdr gate-form)))
-    (u-theta (expand-matrix (let ((theta (long (third gate-form))))
+    (u-theta (expand-matrix (let ((theta (coerce-to-long-float (third gate-form))))
                               (make-array '(2 2)
                                           :initial-contents 
                                           (list (list (cos theta)  (sin theta))
                                                 (list (- (sin theta))  (cos theta)))))
                             (list (second gate-form))))
-    (cphase (expand-matrix (let ((alpha (long (fourth gate-form))))
+    (cphase (expand-matrix (let ((alpha (coerce-to-long-float (fourth gate-form))))
                              (make-array '(4 4)
                                          :initial-contents 
                                          (list (list 1 0 0 0)
@@ -149,10 +151,10 @@ gate-form, which should conform to the QGAME interface syntax."
                                                (list 0 0 1 0)
                                                (list 0 0 0 (exp (* (sqrt -1) alpha))))))
                            (list (second gate-form) (third gate-form))))
-    (u2 (expand-matrix (let ((phi (long (third gate-form)))
-                             (theta (long (fourth gate-form)))
-                             (psi (long (fifth gate-form)))
-                             (alpha (long (sixth gate-form)))
+    (u2 (expand-matrix (let ((phi (coerce-to-long-float (third gate-form)))
+                             (theta (coerce-to-long-float (fourth gate-form)))
+                             (psi (coerce-to-long-float (fifth gate-form)))
+                             (alpha (coerce-to-long-float (sixth gate-form)))
                              (i (sqrt -1)))
                          (make-array
                           '(2 2)

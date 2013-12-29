@@ -5,6 +5,8 @@
 ;; version 1.20031226 (major version number.yyyymmdd)
 ;; version history below
 
+(in-package :qgame)
+
 ; for maximum reasonably safe speed
 (eval-when (compile)
   (declaim (optimize (speed 3) (safety 1) (space 0) (debug 0))))
@@ -445,37 +447,37 @@ branch."
                                    distance-from-first-to-second-unmatched-end
                                    )))))))
         
-#|
-Test code for without-if-branch and without-else-branch:
+; #|
+; Test code for without-if-branch and without-else-branch:
 
-(setq p1 '((foo) (bar) (end) (baz) (bingo) (end) (biff) (boff)))
-(setq p2 '(  (foo) (bar) 
-             (measure 0) (blink) (end) (blank) (end) 
-           (end) 
-             (baz) (bingo) 
-             (measure 1) (plonk) (end) (plank) (end)
-           (end) 
-           (biff) (boff)))
-(setq p3 '(  (foo) (bar) 
-             (measure 0) (blink) (measure 0)(end)(end)(end) (blank) (end) 
-           (end) 
-             (baz) (bingo) 
-             (measure 1) (plonk) (end) (plank) (measure 0)(end)(end)(end)
-           (end) 
-           (biff) (boff)))
+; (setq p1 '((foo) (bar) (end) (baz) (bingo) (end) (biff) (boff)))
+; (setq p2 '(  (foo) (bar) 
+;              (measure 0) (blink) (end) (blank) (end) 
+;            (end) 
+;              (baz) (bingo) 
+;              (measure 1) (plonk) (end) (plank) (end)
+;            (end) 
+;            (biff) (boff)))
+; (setq p3 '(  (foo) (bar) 
+;              (measure 0) (blink) (measure 0)(end)(end)(end) (blank) (end) 
+;            (end) 
+;              (baz) (bingo) 
+;              (measure 1) (plonk) (end) (plank) (measure 0)(end)(end)(end)
+;            (end) 
+;            (biff) (boff)))
 
-(without-if-branch p1)
-(without-if-branch p2)
-(without-if-branch p3)
-(without-else-branch p1)
-(without-else-branch p2)
-(without-else-branch p3)
+; (without-if-branch p1)
+; (without-if-branch p2)
+; (without-if-branch p3)
+; (without-else-branch p1)
+; (without-else-branch p2)
+; (without-else-branch p3)
 
 
-(setq p4 '((end) (measure 1) (end) (end) (measure 1) (end)))
-(without-if-branch p4)
-(without-else-branch p4)
-|#
+; (setq p4 '((end) (measure 1) (end) (end) (measure 1) (end)))
+; (without-if-branch p4)
+; (without-else-branch p4)
+; |#
 
 (defun force-to (measured-value qubit qsys)
   "Collapses a quantum system to the provided measured-value for the provided
@@ -598,19 +600,19 @@ return values."
 
 
 
-#|
+; #|
 
-EXAMPLES
+; EXAMPLES
 
-To run each example evaluate the relevant definition and then call the function
-with or without a debugging argument (which should be 0 for no debugging info,
-1 for a little debugging info, and 1 for a lot of debugging info). For example,
-after evaluating the test-herbs-grover function definition you could try the
-following calls:
+; To run each example evaluate the relevant definition and then call the function
+; with or without a debugging argument (which should be 0 for no debugging info,
+; 1 for a little debugging info, and 1 for a lot of debugging info). For example,
+; after evaluating the test-herbs-grover function definition you could try the
+; following calls:
 
-(test-herbs-grover) ;; for no debugging info
-(test-herbs-grover 1) ;; for some debugging info (just results)
-(test-herbs-grover 2) ;; for more debugging info
+; (test-herbs-grover) ;; for no debugging info
+; (test-herbs-grover 1) ;; for some debugging info (just results)
+; (test-herbs-grover 2) ;; for more debugging info
 
 
 ;;
@@ -639,7 +641,7 @@ following calls:
    :debug debug
    :inspect t))
 
-(test-branching)
+; (test-branching)
 
 
 (defun test-herbs-grover (&optional (debug 0))
@@ -667,8 +669,8 @@ cases."
    :debug debug
    :inspect nil))
 
-(test-herbs-grover 1)
-(test-herbs-grover 2)
+; (test-herbs-grover 1)
+; (test-herbs-grover 2)
 
 
 (defun test-evolved-grover (&optional (debug 0))
@@ -696,8 +698,8 @@ algorithm (evolved with lgp2) for a 4 item database on all four
    :debug debug
    :inspect nil))
 
-(test-evolved-grover 1)
-(test-evolved-grover 2)
+; (test-evolved-grover 1)
+; (test-evolved-grover 2)
 
 
 (defun test-evolved-and-or (&optional (debug 0))
@@ -734,10 +736,10 @@ algorithm (evolved with lgp2) for a 4 item database on all four
    :debug debug
    :inspect nil))
 
-(test-evolved-and-or 1)
-(test-evolved-and-or 2)
+; (test-evolved-and-or 1)
+; (test-evolved-and-or 2)
 
 
-|#
+; |#
 
 ;; EOF
