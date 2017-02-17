@@ -34,4 +34,4 @@ Clone this project into `~/quicklisp/local-projects/`.
 
 ## License
 
-Copyright &copy; 2000--2017, the authors.
+Copyright &copy; 2000&ndash;2017, the Authors and contributors. Released under the MIT License. See `qgame/LICENSE` for more information.
